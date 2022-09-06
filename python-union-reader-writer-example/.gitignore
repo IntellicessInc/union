@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-reader-folder/
+reader-folder/**
+writer-folder/**

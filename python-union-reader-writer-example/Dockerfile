@@ -1,6 +1,8 @@
 FROM python:3.8-slim-buster
 
-ARG BROOK_APP_CONFIG_FILE
+ARG CONFIG_FILE
+ARG PYTHON_SCRIPT
+ENV PYTHON_SCRIPT=$PYTHON_SCRIPT
 
 WORKDIR /app
 
@@ -9,7 +11,8 @@ RUN pip install -r requirements.txt
 
 COPY src ./src
 
-COPY $BROOK_APP_CONFIG_FILE ./config.ini
-ENV BROOK_APP_CONFIG_FILE=/app/config.ini
+COPY $CONFIG_FILE ./config.ini
+ENV CONFIG_FILE=/app/config.ini
+ENV PYTHONPATH=/app/src
 
-ENTRYPOINT python
+CMD python3 -m src.${PYTHON_SCRIPT}

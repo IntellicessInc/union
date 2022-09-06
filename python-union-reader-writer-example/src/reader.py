@@ -7,9 +7,6 @@ import time
 from src.utils import config, file_utils, utils
 from src.utils.union_client import union_client
 
-# Don't add "src." before local folders in import as it won't work in Docker environment!
-
-
 if __name__ == '__main__':
     config_parser = config.init('reader_local_config.ini')
     auth_config = dict(config_parser['auth'])
@@ -30,8 +27,9 @@ if __name__ == '__main__':
     reader_folder = local_config['reader.folder']
 
     # if set to None, it will read all data that was saved so far in given data space (i.e. in client/region/asset/folder)
-    inclusive_since_timestamp = utils.date_time_to_milliseconds_timestamp(datetime.now())
-    logging.info(f"Listening to '{client}/{region}/{asset}/{folder}' data space in Union...")
+    inclusive_since_timestamp = utils.date_time_to_milliseconds_timestamp(datetime.now()) - 5000
+    logging.info(
+        f"Listening to '{client}/{region}/{asset}/{folder}' data space in Union since timestamp='{inclusive_since_timestamp}'...")
     while True:
         logs_with_data = union_api_client.get_new_jwlf_logs_with_data(client, region, asset, folder,
                                                                       inclusive_since_timestamp)

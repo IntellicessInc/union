@@ -6,14 +6,15 @@ services:
     build:
       context: .
       args:
-        BROOK_APP_CONFIG_FILE: ./writer_docker_config.ini
+        PYTHON_SCRIPT: writer
+        CONFIG_FILE: ./writer_docker_config.ini
     environment:
       LOGGING_LEVEL: INFO
       AUTH_PROVIDER_URL: $AUTH_PROVIDER_URL
       AUTH_PROVIDER_REALM: $AUTH_PROVIDER_REALM
       AUTH_CLIENT_ID: $AUTH_CLIENT_ID
-      AUTH_USER_USERNAME: $AUTH_USER_USERNAME
-      AUTH_USER_PASSWORD: $AUTH_USER_PASSWORD
+      AUTH_USER_USERNAME: $AUTH_WRITER_USER_USERNAME
+      AUTH_USER_PASSWORD: $AUTH_WRITER_USER_PASSWORD
       UNION_URL: $UNION_URL
       UNION_CLIENT: $UNION_CLIENT
       UNION_REGION: $UNION_REGION
@@ -27,19 +28,20 @@ services:
     build:
       context: .
       args:
-        BROOK_APP_CONFIG_FILE: ./reader_docker_config.ini
+        PYTHON_SCRIPT: reader
+        CONFIG_FILE: ./reader_docker_config.ini
     environment:
       LOGGING_LEVEL: INFO
       AUTH_PROVIDER_URL: $AUTH_PROVIDER_URL
       AUTH_PROVIDER_REALM: $AUTH_PROVIDER_REALM
       AUTH_CLIENT_ID: $AUTH_CLIENT_ID
-      AUTH_USER_USERNAME: $AUTH_USER_USERNAME
-      AUTH_USER_PASSWORD: $AUTH_USER_PASSWORD
+      AUTH_USER_USERNAME: $AUTH_READER_USER_USERNAME
+      AUTH_USER_PASSWORD: $AUTH_READER_USER_PASSWORD
       UNION_URL: $UNION_URL
       UNION_CLIENT: $UNION_CLIENT
       UNION_REGION: $UNION_REGION
       UNION_ASSET: $UNION_ASSET
       UNION_FOLDER: $UNION_FOLDER
-      READER_FOLDER: /writer-folder
+      READER_FOLDER: /reader-folder
     volumes:
       - ./reader-folder:/reader-folder

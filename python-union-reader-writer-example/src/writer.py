@@ -4,19 +4,18 @@ import logging
 import time
 
 from src.utils import config, file_utils, csv_jwlf_converter, jwlf
-# Don't add "src." before local folders in import as it won't work in Docker environment!
 from src.utils.union_client import union_client
 
 HEADER_VALUE_TYPE_MAPPING = {
-    "Measured Depth (ft)": jwlf.ValueType.FLOAT,
-    "R Drilling Bit Balling": jwlf.ValueType.FLOAT,
-    "DATE_TIME (YYYY-MM-DD)": jwlf.ValueType.DATETIME
+    "Integer Number 1": jwlf.ValueType.INTEGER,
+    "Float Number 2": jwlf.ValueType.FLOAT,
+    "String Text A": jwlf.ValueType.STRING
 }
 
 AVAILABLE_FILE_EXTENSIONS = ['.csv', '.json']
 
 if __name__ == '__main__':
-    config_parser = config.init('writer_local_config.ini')
+    config_parser = config.init('./writer_local_config.ini')
     auth_config = dict(config_parser['auth'])
     union_config = dict(config_parser['union'])
     local_config = dict(config_parser['local'])
