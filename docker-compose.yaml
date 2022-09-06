@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+
+  writer:
+    build:
+      context: .
+      args:
+        BROOK_APP_CONFIG_FILE: ./writer_docker_config.ini
+    environment:
+      LOGGING_LEVEL: INFO
+      AUTH_PROVIDER_URL: $AUTH_PROVIDER_URL
+      AUTH_PROVIDER_REALM: $AUTH_PROVIDER_REALM
+      AUTH_CLIENT_ID: $AUTH_CLIENT_ID
+      AUTH_USER_USERNAME: $AUTH_USER_USERNAME
+      AUTH_USER_PASSWORD: $AUTH_USER_PASSWORD
+      UNION_URL: $UNION_URL
+      UNION_CLIENT: $UNION_CLIENT
+      UNION_REGION: $UNION_REGION
+      UNION_ASSET: $UNION_ASSET
+      UNION_FOLDER: $UNION_FOLDER
+      WRITER_FOLDER: /writer-folder
+    volumes:
+      - ./writer-folder:/writer-folder
+
+  reader:
+    build:
+      context: .
+      args:
+        BROOK_APP_CONFIG_FILE: ./reader_docker_config.ini
+    environment:
+      LOGGING_LEVEL: INFO
+      AUTH_PROVIDER_URL: $AUTH_PROVIDER_URL
+      AUTH_PROVIDER_REALM: $AUTH_PROVIDER_REALM
+      AUTH_CLIENT_ID: $AUTH_CLIENT_ID
+      AUTH_USER_USERNAME: $AUTH_USER_USERNAME
+      AUTH_USER_PASSWORD: $AUTH_USER_PASSWORD
+      UNION_URL: $UNION_URL
+      UNION_CLIENT: $UNION_CLIENT
+      UNION_REGION: $UNION_REGION
+      UNION_ASSET: $UNION_ASSET
+      UNION_FOLDER: $UNION_FOLDER
+      READER_FOLDER: /writer-folder
+    volumes:
+      - ./reader-folder:/reader-folder
