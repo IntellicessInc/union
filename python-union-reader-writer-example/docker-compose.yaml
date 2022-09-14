@@ -20,7 +20,7 @@ services:
       UNION_REGION: $UNION_REGION
       UNION_ASSET: $UNION_ASSET
       UNION_FOLDER: $UNION_FOLDER
-      WRITER_FOLDER: /writer-folder
+      LOCAL_WORKING_DIRECTORY: /writer-folder
     volumes:
       - ./writer-folder:/writer-folder
 
@@ -42,6 +42,6 @@ services:
       UNION_REGION: $UNION_REGION
       UNION_ASSET: $UNION_ASSET
       UNION_FOLDER: $UNION_FOLDER
-      READER_FOLDER: /reader-folder
+      LOCAL_WORKING_DIRECTORY: /reader-folder
     volumes:
       - ./reader-folder:/reader-folder

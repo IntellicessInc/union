@@ -33,7 +33,7 @@ if __name__ == '__main__':
     folder = union_config['folder']
     writer_folder = local_config['writer.folder']
 
-    logging.info("Listening to writer folder...")
+    logging.info("Listening to local writer folder...")
     while True:
         for file_path in file_utils.get_all_file_paths_from_folder(writer_folder):
             filename: str = file_path.split('/')[-1]
@@ -53,6 +53,7 @@ if __name__ == '__main__':
                         jwlf_log.header.metadata = {}
                     filename_without_extension = filename.replace('.json', '')
                     jwlf_log.header.metadata['filename'] = filename_without_extension + str(index)
+                    index = index + 1
                 saved_log_ids = union_api_client.save_jwlf_logs(client, region, asset, folder, jwlf_logs)
                 logging.info(f"JWLF Logs from file '{filename}' got saved with ids={saved_log_ids}")
             file_utils.delete_file(file_path)

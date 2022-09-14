@@ -40,6 +40,6 @@ if __name__ == '__main__':
             if not filename.endswith('.json'):
                 filename = filename + '.json'
             file_utils.create_file(f"{reader_folder}/{filename}", jwlf_log_json)
-            logging.info(f"Pulled '{filename}'")
+            logging.info(f"Pulled '{filename}' and saved in lcoal reader folder")
 
         time.sleep(1)

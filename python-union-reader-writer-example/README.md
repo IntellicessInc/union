@@ -1,26 +1,21 @@
 # Union reader-writer example in Python
 
-## Get started
-Run `docker-compose up --build` command in this directory.
+## Introduction
+You can run the example using Docker (the easiest option) or through IDE.
+In here, we describe Python IDE option.
 
-Then, just use sample data files and add them to the *writer-folder*.
-After a few seconds, the writer will take the data, push them to the Union and remove the files from *writer-folder*.
-Once this is done, the reader will notice the new data, pull and save them to *reader-folder*.
+## Run reader and writer with IDE
+In order to run reader and writer Python scripts, you need to create virtual environment in this folder
+and install packages enlisted in *requirements.txt*. Then, create *reader-folder* and *writer-folder* in this directory.
+Once this is done, you can run *src/reader.py* and *src/writer.py*.
 
-## How does it work?
-The docker-compose.yaml file contains both writer and reader services that are written in Python.
+When reader and writer are run locally (not in Docker), by default they use *src/reader_local_config.ini*
+and *src/writer_local_config.ini* configurations.
 
-Writer listens to *writer-folder*. It accepts JSON files with data in JWLF (it stands for [Json Well Log Format](https://jsonwelllogformat.org/)) 
-and CSV files which are converted eventually to JWLF. The files are then pushed to Union.
+You can find more details on how to test reader and writer example in *README.md* in the parent folder. 
 
-Reader, in turn, frequently query [Union](https://dev-dsp.southcentralus.cloudapp.azure.com) for the data,
-pulls the logs in JWLF and saves them in *reader-folder*.
-
-Both reader and writer works in the same data space that is identified by the following parameters:
-UNION_CLIENT, UNION_REGION, UNION_ASSET and UNION_FOLDER.
-
-If you created your own users or roles different from the described on [Union - Get Started](https://dev-dsp.southcentralus.cloudapp.azure.com/#get-started),
-feel free to change the parameters in docker-compose.yaml or .env file that docker-compose refers to, and rerun the apps.
-
-**If you haven't already visited [Union - Get Started](https://dev-dsp.southcentralus.cloudapp.azure.com/#get-started),
-we encourage you to do so to better understand the whole process.**
+## Configuration
+In Docker version, you can provide configuration through environment variables. 
+However, when running the example locally, usually you don't want to play around with environment variables.
+That's why when you run the example locally, configuration can be changed modifying
+*src/reader_local_config.ini* and *src/writer_local_config.ini*.
