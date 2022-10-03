@@ -87,6 +87,7 @@ public class UnionClient {
     public JwlfResponseList getNewJwlfLogsWithData(String client, String region, String asset, String folder,
                                                    Long inclusiveSinceTimestamp) {
         String searchKey = client + "/" + region + "/" + asset + "/" + folder;
+        inclusiveSinceTimestamp = Optional.ofNullable(inclusiveSinceTimestamp).orElse(0L);
         Long currentInclusiveSinceTimestamp = searchSinceTimestampMap.getOrDefault(searchKey, inclusiveSinceTimestamp);
 
         long stableDataTimestamp = getStableJwlfDataTimestamp(client, region, asset, folder);

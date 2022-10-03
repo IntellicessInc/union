@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+
+  writer:
+    build:
+      context: .
+      args:
+        STARTUP_OBJECT: Writer
+    environment:
+      LOGGING_LEVEL: INFO
+      AUTH_PROVIDER_URL: $AUTH_PROVIDER_URL
+      AUTH_PROVIDER_REALM: $AUTH_PROVIDER_REALM
+      AUTH_CLIENT_ID: $AUTH_CLIENT_ID
+      AUTH_USER_USERNAME: $AUTH_WRITER_USER_USERNAME
+      AUTH_USER_PASSWORD: $AUTH_WRITER_USER_PASSWORD
+      UNION_URL: $UNION_URL
+      UNION_CLIENT: $UNION_CLIENT
+      UNION_REGION: $UNION_REGION
+      UNION_ASSET: $UNION_ASSET
+      UNION_FOLDER: $UNION_FOLDER
+      LOCAL_WORKING_DIRECTORY: /writer-folder
+    volumes:
+      - ./writer-folder:/writer-folder
+
+  reader:
+    build:
+      context: .
+      args:
+        STARTUP_OBJECT: Reader
+    environment:
+      LOGGING_LEVEL: INFO
+      AUTH_PROVIDER_URL: $AUTH_PROVIDER_URL
+      AUTH_PROVIDER_REALM: $AUTH_PROVIDER_REALM
+      AUTH_CLIENT_ID: $AUTH_CLIENT_ID
+      AUTH_USER_USERNAME: $AUTH_READER_USER_USERNAME
+      AUTH_USER_PASSWORD: $AUTH_READER_USER_PASSWORD
+      UNION_URL: $UNION_URL
+      UNION_CLIENT: $UNION_CLIENT
+      UNION_REGION: $UNION_REGION
+      UNION_ASSET: $UNION_ASSET
+      UNION_FOLDER: $UNION_FOLDER
+      LOCAL_WORKING_DIRECTORY: /reader-folder
+    volumes:
+      - ./reader-folder:/reader-folder

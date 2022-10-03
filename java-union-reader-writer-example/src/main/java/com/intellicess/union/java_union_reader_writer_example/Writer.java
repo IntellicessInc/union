@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Writer {
     private static final Map<String, JwlfValueType> HEADER_VALUE_TYPE_MAPPING = Map.of(
@@ -87,7 +88,7 @@ public class Writer {
                     }
 
                     JwlfSavedResponseList savedJwlfs = unionClient.saveJwlfLogs(client, region, asset, folder, jwlfRequests);
-                    log.info("JWLF Logs from file '{}' got saved with ids={}", filename, savedJwlfs.getList().stream().map(JwlfSavedResponse::getId));
+                    log.info("JWLF Logs from file '{}' got saved with ids={}", filename, savedJwlfs.getList().stream().map(JwlfSavedResponse::getId).collect(Collectors.toList()));
                 }
                 filePath.toFile().delete();
             }

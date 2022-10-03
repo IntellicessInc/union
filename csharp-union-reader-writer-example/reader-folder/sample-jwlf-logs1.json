@@ -1,0 +1,77 @@
+{
+  "id": "633b1b00d77575390a8cd740",
+  "client": "public-test",
+  "region": "texas",
+  "asset": "well1",
+  "folder": "shared-data",
+  "creationTimestamp": 1664817920548,
+  "header": {
+    "name": "EcoScope Data",
+    "description": null,
+    "well": "35/12-6S",
+    "wellbore": null,
+    "field": "Fram",
+    "country": null,
+    "date": "2020-06-14T10:42:06Z",
+    "operator": null,
+    "serviceCompany": null,
+    "runNumber": null,
+    "elevation": null,
+    "source": null,
+    "startIndex": 2907.79,
+    "endIndex": 2907.84,
+    "step": 0.01,
+    "dataUri": null,
+    "metadata": {
+      "filename": "sample-jwlf-logs1"
+    }
+  },
+  "curves": [
+    {
+      "name": "MD",
+      "description": "Measured depth",
+      "quantity": "length",
+      "unit": "m",
+      "valueType": 3,
+      "dimensions": 1,
+      "axis": null,
+      "maxSize": null
+    },
+    {
+      "name": "A40H",
+      "description": "Attenuation resistivity 40 inch",
+      "quantity": "electrical resistivity",
+      "unit": "ohm.m",
+      "valueType": 3,
+      "dimensions": 1,
+      "axis": null,
+      "maxSize": null
+    }
+  ],
+  "data": [
+    [
+      2907.79,
+      29.955
+    ],
+    [
+      2907.8,
+      28.892
+    ],
+    [
+      2907.81,
+      27.868
+    ],
+    [
+      2907.82,
+      31.451
+    ],
+    [
+      2907.83,
+      28.08
+    ],
+    [
+      2907.84,
+      27.733
+    ]
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "id": "633b1aeb072050612ceaae98",
+  "client": "public-test",
+  "region": "texas",
+  "asset": "well1",
+  "folder": "shared-data",
+  "creationTimestamp": 1664817899169,
+  "header": {
+    "name": "sample",
+    "description": null,
+    "well": "well1",
+    "wellbore": null,
+    "field": null,
+    "country": null,
+    "date": null,
+    "operator": null,
+    "serviceCompany": null,
+    "runNumber": null,
+    "elevation": null,
+    "source": null,
+    "startIndex": null,
+    "endIndex": null,
+    "step": null,
+    "dataUri": null,
+    "metadata": {
+      "filename": "sample"
+    }
+  },
+  "curves": [
+    {
+      "name": "Integer Number 1",
+      "description": null,
+      "quantity": null,
+      "unit": null,
+      "valueType": 2,
+      "dimensions": 1,
+      "axis": null,
+      "maxSize": null
+    },
+    {
+      "name": "Float Number 2",
+      "description": null,
+      "quantity": null,
+      "unit": null,
+      "valueType": 3,
+      "dimensions": 1,
+      "axis": null,
+      "maxSize": null
+    },
+    {
+      "name": "String Text A",
+      "description": null,
+      "quantity": null,
+      "unit": null,
+      "valueType": 1,
+      "dimensions": 1,
+      "axis": null,
+      "maxSize": null
+    }
+  ],
+  "data": [
+    [
+      2,
+      46,
+      "random text1"
+    ],
+    [
+      2,
+      25,
+      "random text2"
+    ],
+    [
+      5,
+      21,
+      "random text3"
+    ],
+    [
+      3,
+      19,
+      "random text4"
+    ],
+    [
+      6,
+      18,
+      "random text5"
+    ],
+    [
+      6,
+      -4,
+      "random text6"
+    ]
+  ]
+}

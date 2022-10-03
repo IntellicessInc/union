@@ -8,10 +8,10 @@ public class AccessTokenResponse {
     private String accessToken;
 
     @JsonProperty("expires_in")
-    private String expiresIn;
+    private Long expiresIn;
 
     @JsonProperty("refresh_expires_in")
-    private String refreshExpiresIn;
+    private Long refreshExpiresIn;
 
     @JsonProperty("refresh_token")
     private String refreshToken;
@@ -30,19 +30,19 @@ public class AccessTokenResponse {
         this.accessToken = accessToken;
     }
 
-    public String getExpiresIn() {
+    public Long getExpiresIn() {
         return expiresIn;
     }
 
-    public void setExpiresIn(String expiresIn) {
+    public void setExpiresIn(Long expiresIn) {
         this.expiresIn = expiresIn;
     }
 
-    public String getRefreshExpiresIn() {
+    public Long getRefreshExpiresIn() {
         return refreshExpiresIn;
     }
 
-    public void setRefreshExpiresIn(String refreshExpiresIn) {
+    public void setRefreshExpiresIn(Long refreshExpiresIn) {
         this.refreshExpiresIn = refreshExpiresIn;
     }
 

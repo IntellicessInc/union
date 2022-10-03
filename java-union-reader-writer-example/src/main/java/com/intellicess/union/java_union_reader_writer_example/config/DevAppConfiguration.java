@@ -55,7 +55,7 @@ public class DevAppConfiguration implements AppConfiguration {
 
     @Override
     public String getUnionUrl() {
-        return "https://dev-dsp.southcentralus.cloudapp.azure.com";
+        return "http://localhost:8080";
     }
 
     @Override
