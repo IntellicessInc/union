@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c62f368-17da-4e3f-a34e-d923f809f241" name="Changes" comment="feat: Java Reader and Writer example added">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample-data/sample.csv" beforeDir="false" afterPath="$PROJECT_DIR$/sample-data/sample.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/client/UnionClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/client/UnionClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/client/model/auth/AccessTokenResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/client/model/auth/AccessTokenResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/config/DevAppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/config/DevAppConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +83,7 @@
         <option name="IS_IGNORE_MISSING_FILES" value="false" />
         <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
         <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
         </ENTRIES>
       </extension>
       <method v="2">

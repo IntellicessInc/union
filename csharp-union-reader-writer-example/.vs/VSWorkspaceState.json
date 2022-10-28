@@ -2,15 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\csharp-union-reader-writer-example",
-    "\\csharp-union-reader-writer-example\\bin\\Debug",
-    "\\csharp-union-reader-writer-example\\bin\\Debug\\net6.0",
-    "\\csharp-union-reader-writer-example\\bin\\Release",
-    "\\csharp-union-reader-writer-example\\bin\\Release\\net6.0",
-    "\\csharp-union-reader-writer-example\\obj\\Debug",
-    "\\csharp-union-reader-writer-example\\obj\\Release",
-    "\\csharp-union-reader-writer-example\\obj\\Release\\net6.0",
-    "\\reader-folder"
+    "\\reader-folder",
+    "\\sample-data"
   ],
-  "SelectedNode": "\\csharp-union-reader-writer-example\\Reader.cs",
+  "SelectedNode": "\\csharp-union-reader-writer-example\\ObjectDeserializer.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -33,3 +33,22 @@ feel free to change the parameters in docker-compose.yaml or .env file that dock
 
 **If you haven't already visited [Union - Get Started](https://dev-dsp.southcentralus.cloudapp.azure.com/#get-started),
 we encourage you to do so to better understand the whole process.**
+
+## Querying data by time range
+You can query data using *sinceTimestamp* and *tillTimestamp* query params. This way, you're capable of getting continuous real-time stream of new data.
+
+Also, it might be tempting to set *tillTimestamp* to the current UTC timestamp. However, such action may result in data lost if you won't run this query again after some time.
+This is because current timestamp on Union servers may differ from your current timestamp. Moreover, even if the servers were ideally synchronized, already saved data might not be visible yet.
+
+That's what stable timestamp is for.
+
+In our example *tillTimestamp* is evaluated based on stable data timestamp retrieved from Union.
+This value is returned with all JWLF data query responses.
+The stable data timestamp tells you what till timestamp you can use to be sure that the same query if repeated, will yield the same data unless any of the logs haven't been removed.
+In other words, if you run many queries with the same *sinceTimestamp* and *tillTimestamp* equal to *stableTimestamp + 1* maximally, then each time you get the same data results.
+Why is there *stableTimestamp + 1*?
+That's because ***tillTimestamp* is exclusive**.
+On the other hand, ***sinceTimestamp* is inclusive**.
+If you use *tillTimestamp* equal to the current timestamp, the returned results may not be the all data that will eventually get saved in Union within the timestamp range you request for.
+So, if the query is repeated a few hundred milliseconds later, the response may contain more data.
+**Note that listening to data in Union this way, may cause data loss. Usually, this is why it's very important to use *stableTimestamp + 1* as *tillTimestamp* value**.
