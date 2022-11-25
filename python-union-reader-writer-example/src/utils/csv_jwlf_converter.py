@@ -3,14 +3,16 @@ from typing import Optional
 from src.utils import jwlf
 from src.utils.jwlf import JWLFLog
 
+FILENAME_METADATA_KEY = "filename"
 
-def __get_from_dict__(dictionary, key) -> Optional:
+
+def get_from_dict(dictionary, key) -> Optional:
     if dictionary and key and key in dictionary.keys():
         return dictionary[key]
     return None
 
 
-def __cast_value_to_right_type__(jwlf_curve, value):
+def cast_value_to_right_type(jwlf_curve, value):
     jwlf_value = None
     if value:
         value_type = jwlf_curve.value_type
@@ -32,13 +34,13 @@ def __cast_value_to_right_type__(jwlf_curve, value):
     return jwlf_value
 
 
-def __to_jwlf_data_row__(data_line, jwlf_curves):
+def to_jwlf_data_row(data_line, jwlf_curves):
     values = data_line.split(",")
     jwlf_values = []
     index = 0
     for value in values:
         jwlf_curve = jwlf_curves[index]
-        jwlf_value = __cast_value_to_right_type__(jwlf_curve, value)
+        jwlf_value = cast_value_to_right_type(jwlf_curve, value)
         jwlf_values.append(jwlf_value)
         index += 1
     return jwlf_values
@@ -48,7 +50,7 @@ def convert_csv_to_jwlf(well: str, filename: str, content: str,
                         header_value_type_mapping: Optional[dict]) -> Optional[JWLFLog]:
     filename_without_extension = filename.replace(".csv", "")
     jwlf_header = jwlf.JWLFHeader(name=filename_without_extension, well=well,
-                                  metadata={'filename': filename_without_extension.replace(".csv", "")})
+                                  metadata={FILENAME_METADATA_KEY: filename_without_extension.replace(".csv", "")})
     if not content:
         return jwlf.JWLFLog(jwlf_header)
 
@@ -56,12 +58,12 @@ def convert_csv_to_jwlf(well: str, filename: str, content: str,
     title_line = lines[0]
     headers = title_line.split(",")
     jwlf_curves = [
-        jwlf.JWLFCurve(name=header, value_type=__get_from_dict__(header_value_type_mapping, header), dimensions=1)
+        jwlf.JWLFCurve(name=header, value_type=get_from_dict(header_value_type_mapping, header), dimensions=1)
         for header in headers
     ]
     if len(lines) == 1:
         return jwlf.JWLFLog(jwlf_header, jwlf_curves)
 
     data_lines = lines[1:]
-    jwlf_data = [__to_jwlf_data_row__(data_line, jwlf_curves) for data_line in data_lines if data_line.strip() != '']
+    jwlf_data = [to_jwlf_data_row(data_line, jwlf_curves) for data_line in data_lines if data_line.strip() != '']
     return jwlf.JWLFLog(jwlf_header, jwlf_curves, jwlf_data)

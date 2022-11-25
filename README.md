@@ -34,6 +34,16 @@ feel free to change the parameters in docker-compose.yaml or .env file that dock
 **If you haven't already visited [Union - Get Started](https://dev-dsp.southcentralus.cloudapp.azure.com/#get-started),
 we encourage you to do so to better understand the whole process.**
 
+### Base64 encoded binaries sent as part of JWLF
+It is possible to send binary files using JWLF too. To do that, you can encode binary files into base64 format and send them in the shape of string data in JWLF log.
+When receiving and parsing that data you just need to decode it and use wherever you need.
+
+If you want to test this scenerio, you may copy *base64-encoded-binaries-example* folder from sample data to the *writer-folder*.
+
+The writer app looks for csv file with metadata and encodes all other files inside of this folder.
+Once this is done, it creates JWLF log and sends it to the Union. On the other side, the reader app checks for new data including the base64 encoded. When it receives base64 encoded data, it decodes the binary files and saves them into the folder named after the csv file with metadata. 
+
+
 ## Querying data by time range
 You can query data using *sinceTimestamp* and *tillTimestamp* query params. This way, you're capable of getting continuous real-time stream of new data.
 
