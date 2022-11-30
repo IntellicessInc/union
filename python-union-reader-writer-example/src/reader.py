@@ -43,8 +43,7 @@ if __name__ == '__main__':
             filename: str = log_with_data.header.metadata[FILENAME_METADATA_KEY]
             base64EncodedBinariesExample: bool = True if log_with_data.header.metadata.get(BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY) else False
             if base64EncodedBinariesExample:
-                jwlf_log = JWLFLog.from_dict(log_with_data_dict)
-                csv_jwlf_with_base64_encoded_binaries_converter.convert_jwlf_to_folder(reader_folder, jwlf_log)
+                csv_jwlf_with_base64_encoded_binaries_converter.convert_jwlf_to_folder(reader_folder, log_with_data)
             if not filename.endswith('.json'):
                 filename = filename + '.json'
             file_utils.create_textual_file(f"{reader_folder}/{filename}", jwlf_log_json)

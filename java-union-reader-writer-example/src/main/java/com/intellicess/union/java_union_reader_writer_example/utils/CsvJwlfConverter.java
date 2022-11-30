@@ -18,6 +18,7 @@ public class CsvJwlfConverter {
 
     private static final List<String> TRUE_BOOLEAN_VALUES = List.of("yes", "true", "on");
     private static final List<String> FALSE_BOOLEAN_VALUES = List.of("no", "false", "off");
+    public static final String FILENAME_METADATA_KEY = "filename";
 
     private static final Logger log = LogManager.getLogger(CsvJwlfConverter.class);
 
@@ -74,7 +75,7 @@ public class CsvJwlfConverter {
         return castedValues;
     }
 
-    private static Object castValueToRightType(JwlfCurve jwlfCurve, Object value) {
+    public static Object castValueToRightType(JwlfCurve jwlfCurve, Object value) {
         if (value == null) {
             return null;
         }

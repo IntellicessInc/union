@@ -4,7 +4,7 @@ from typing import Optional
 
 from src.utils import file_utils
 from src.utils import jwlf
-from src.utils.csv_jwlf_converter import get_from_dict, FILENAME_METADATA_KEY
+from src.utils.csv_jwlf_converter import get_from_dict, FILENAME_METADATA_KEY, cast_value_to_right_type
 from src.utils.jwlf import JWLFLog, ValueType
 
 BINARIES_DATA_CURVE_NAME = "Binaries data"
@@ -45,10 +45,10 @@ def convert_folder_to_jwlf(folder_path: str, header_value_type_mapping: Optional
                 if len(curve_unit_matches) > 0:
                     curve_unit = curve_unit_matches[0].replace("(", "").replace(")", "")
                     header = header.replace(curve_unit_matches[0], "")
-                jwlf_curves.append(
-                    jwlf.JWLFCurve(name=header, value_type=get_from_dict(header_value_type_mapping, header),
-                                   dimensions=1, unit=curve_unit))
-                data_entry.append(data)
+                jwlf_curve = jwlf.JWLFCurve(name=header, value_type=get_from_dict(header_value_type_mapping, header),
+                                            dimensions=1, unit=curve_unit)
+                jwlf_curves.append(jwlf_curve)
+                data_entry.append(cast_value_to_right_type(jwlf_curve, data))
         else:
             with open(path, "rb") as image2string:
                 base64_encoded_content = base64.b64encode(image2string.read()).decode("ascii")

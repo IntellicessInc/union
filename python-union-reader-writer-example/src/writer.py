@@ -11,7 +11,15 @@ from src.utils import csv_jwlf_with_base64_encoded_binaries_converter
 HEADER_VALUE_TYPE_MAPPING = {
     "Integer Number 1": jwlf.ValueType.INTEGER,
     "Float Number 2": jwlf.ValueType.FLOAT,
-    "String Text A": jwlf.ValueType.STRING
+    "String Text A": jwlf.ValueType.STRING,
+    "Bit SN": jwlf.ValueType.INTEGER,
+    "TFA": jwlf.ValueType.FLOAT,
+    "Bit Size": jwlf.ValueType.FLOAT,
+    "DI": jwlf.ValueType.INTEGER,
+    "DO": jwlf.ValueType.INTEGER,
+    "Run Length": jwlf.ValueType.INTEGER,
+    "Hours": jwlf.ValueType.FLOAT,
+    "ROP": jwlf.ValueType.FLOAT
 }
 
 AVAILABLE_FILE_EXTENSIONS = ['.csv', '.json']
@@ -60,9 +68,11 @@ if __name__ == '__main__':
                     jwlf_log.header.metadata[FILENAME_METADATA_KEY] = filename_without_extension + str(index)
                     index = index + 1
                 saved_log_ids = union_api_client.save_jwlf_logs(client, region, asset, folder, jwlf_logs)
-                logging.info(f"JWLF Logs with names='{[log.header.name for log in jwlf_logs]}' got saved with ids={saved_log_ids}")
+                logging.info(
+                    f"JWLF Logs with names='{[log.header.name for log in jwlf_logs]}' got saved with ids={saved_log_ids}")
             elif file_utils.is_folder(path) and name == BASE64_ENCODED_BINARIES_EXAMPLE_FOLDER_NAME:
-                jwlf_log = csv_jwlf_with_base64_encoded_binaries_converter.convert_folder_to_jwlf(path, header_value_type_mapping=HEADER_VALUE_TYPE_MAPPING)
+                jwlf_log = csv_jwlf_with_base64_encoded_binaries_converter.convert_folder_to_jwlf(path,
+                                                                                                  header_value_type_mapping=HEADER_VALUE_TYPE_MAPPING)
                 if not jwlf_log:
                     continue
                 saved_log_id = union_api_client.save_jwlf_log(client, region, asset, folder, jwlf_log)

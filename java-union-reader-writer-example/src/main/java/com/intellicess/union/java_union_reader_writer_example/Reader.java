@@ -22,6 +22,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 
 public class Reader {
 
@@ -69,7 +70,18 @@ public class Reader {
             JwlfResponseList responseList = unionClient.getNewJwlfLogsWithData(client, region, asset, folder, inclusiveSinceTimestamp);
             List<JwlfResponse> jwlfLogs = responseList.getList();
             for (JwlfResponse jwlfLog : jwlfLogs) {
-                String filename = (String) jwlfLog.getHeader().getMetadata().get("filename");
+                String filename = (String) jwlfLog.getHeader().getMetadata().get(CsvJwlfConverter.FILENAME_METADATA_KEY);
+
+                boolean base64EncodedBinariesExample = Optional.ofNullable(jwlfLog
+                        .getHeader()
+                        .getMetadata()
+                        .get(CsvJwlfWithBase64EncodedBinariesConverter.BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY))
+                        .map(o -> Boolean.parseBoolean(o.toString()))
+                        .orElse(false);
+                if (base64EncodedBinariesExample) {
+                    CsvJwlfWithBase64EncodedBinariesConverter.convertJwlfToFolder(readerLocalWorkingDirectory, jwlfLog);
+                }
+
                 if (!filename.endsWith(".json")) {
                     filename += ".json";
                 }
