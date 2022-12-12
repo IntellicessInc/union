@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c62f368-17da-4e3f-a34e-d923f809f241" name="Changes" comment="feat: Java Reader and Writer example added">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/FileContentIndex/b4530c20-879b-45c5-9cf6-0428bb4a2683.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/FileContentIndex/c14050a6-6aaf-42f4-b951-29ebf654c706.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/FileContentIndex/dbb978ea-1702-42ed-9462-b768651e4396.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/FileContentIndex/e23225d3-df85-4d24-86e9-8e5da80e376a.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/slnx.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/config/DevAppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/config/DevAppConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/utils/CsvJwlfConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/utils/CsvJwlfConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/utils/CsvJwlfWithBase64EncodedBinariesConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/utils/CsvJwlfWithBase64EncodedBinariesConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python-union-reader-writer-example/src/reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python-union-reader-writer-example/src/reader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python-union-reader-writer-example/src/utils/csv_jwlf_with_base64_encoded_binaries_converter.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python-union-reader-writer-example/src/utils/csv_jwlf_with_base64_encoded_binaries_converter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python-union-reader-writer-example/src/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python-union-reader-writer-example/src/writer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,15 +41,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/KamilCeglinski/Projects/union/union-github/java-union-reader-writer-example/writer-folder",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KamilCeglinski/Projects/union/union-github/java-union-reader-writer-example/writer-folder&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.intellicess.union.java_union_reader_writer_example.client" />

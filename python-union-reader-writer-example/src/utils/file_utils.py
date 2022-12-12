@@ -22,11 +22,16 @@ def create_folder(directory_path: str):
         os.mkdir(directory_path)
 
 
-def delete_file_or_directory(file_path: str):
-    if os.path.isfile(file_path):
-        os.remove(file_path)
-    elif os.path.isdir(file_path):
-        shutil.rmtree(file_path)
+def delete_file_or_directory(file_path: str, retry=0):
+    try:
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except FileNotFoundError as e:
+        if retry > 3:
+            raise e
+        delete_file_or_directory(file_path, retry + 1)
 
 
 def get_all_file_paths_from_folder(folder_path) -> [str]:
