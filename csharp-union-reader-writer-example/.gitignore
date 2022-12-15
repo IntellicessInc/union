@@ -10,3 +10,7 @@ Dockerfile*
 **/*.ps1
 **/*.cmd
 **/*.sh
+
+
+reader-folder/**
+writer-folder/**

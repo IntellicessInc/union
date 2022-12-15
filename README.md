@@ -62,3 +62,19 @@ On the other hand, ***sinceTimestamp* is inclusive**.
 If you use *tillTimestamp* equal to the current timestamp, the returned results may not be the all data that will eventually get saved in Union within the timestamp range you request for.
 So, if the query is repeated a few hundred milliseconds later, the response may contain more data.
 **Note that listening to data in Union this way, may cause data loss. Usually, this is why it's very important to use *stableTimestamp + 1* as *tillTimestamp* value**.
+
+
+## What is the date time format that Union accepts?
+In compliance with the [Json Well Log Format](https://jsonwelllogformat.org/), Union accepts date time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
+The following are available formats - ISO Local Date, ISO Local Date and Time and ISO Zoned Date Time.
+- **yyyy-MM-DD**
+- **yyyy-MM-DDTHH:mm:ss**
+- **yyyy-MM-DDTHH:mm:ss.S**
+- **yyyy-MM-DDTHH:mm:ss+HH:MM:ss**
+
+Here are some examples of date time values you can use:
+- 2011-12-23
+- 2011-12-23T10:15:30
+- 2011-12-23T10:15:30.821
+- 2011-12-23T10:15:30+01:00
+- 2011-12-23T10:15:30Z (the *'Z'* letter means there is no Zone offset so it may be omitted)
