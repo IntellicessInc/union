@@ -8,6 +8,9 @@ def read_file(file_path: str) -> str:
 
 
 def create_textual_file(file_path: str, content: str):
+    folder = "/".join(file_path.split("/")[:-1])
+    if not is_folder(folder):
+        create_folder(folder)
     with open(file_path, 'w', encoding='utf8') as file:
         file.write(content)
 
