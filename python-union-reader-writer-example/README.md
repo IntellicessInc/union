@@ -7,6 +7,8 @@ In here, we describe Python IDE option.
 ## Run reader and writer with IDE
 In order to run reader and writer Python scripts, you need to create virtual environment in this folder
 and install packages enlisted in *requirements.txt*. Then, create *reader-folder* and *writer-folder* in this directory.
+Before you run the apps, set reader and writer user accounts' credentials in *reader_local_config.ini* and *writer_local_config.ini*
+that you can find in *src* folder.
 Once this is done, you can run *src/reader.py* and *src/writer.py*.
 
 When reader and writer are run locally (not in Docker), by default they use *src/reader_local_config.ini*

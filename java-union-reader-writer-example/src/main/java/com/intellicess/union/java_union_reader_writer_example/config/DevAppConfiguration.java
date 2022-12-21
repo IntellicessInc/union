@@ -20,7 +20,7 @@ public class DevAppConfiguration implements AppConfiguration {
 
     @Override
     public String getAuthProviderUrl() {
-        return "https://dev-intellicess-keycloak.southcentralus.cloudapp.azure.com";
+        return "https://users.intellicess.com";
     }
 
     @Override
@@ -30,15 +30,15 @@ public class DevAppConfiguration implements AppConfiguration {
 
     @Override
     public String getAuthClientId() {
-        return "public-client";
+        return "example-app";
     }
 
     @Override
     public String getAuthUserUsername() {
         if (type == Type.READER) {
-            return "reader";
+            return ""; // TO FILL: reader username
         } else if (type == Type.WRITER) {
-            return "writer";
+            return ""; // TO FILL: writer username
         }
         throw new RuntimeException("Type='" + type + "' and is not recognized");
     }
@@ -46,16 +46,16 @@ public class DevAppConfiguration implements AppConfiguration {
     @Override
     public String getAuthUserPassword() {
         if (type == Type.READER) {
-            return "reader-password";
+            return ""; // TO FILL: reader password
         } else if (type == Type.WRITER) {
-            return "writer-password";
+            return ""; // TO FILL: writer password
         }
         throw new RuntimeException("Type='" + type + "' and is not recognized");
     }
 
     @Override
     public String getUnionUrl() {
-        return "https://dev-dsp.southcentralus.cloudapp.azure.com";
+        return "https://theunion.cloud";
     }
 
     @Override

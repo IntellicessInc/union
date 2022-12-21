@@ -24,7 +24,7 @@ public class DevAppConfiguration : IAppConfiguration
 
     public string GetAuthProviderUrl()
     {
-        return "https://dev-intellicess-keycloak.southcentralus.cloudapp.azure.com";
+        return "https://users.intellicess.com";
     }
 
     public string GetAuthProviderRealm()
@@ -34,18 +34,18 @@ public class DevAppConfiguration : IAppConfiguration
 
     public string GetAuthClientId()
     {
-        return "public-client";
+        return "example-app";
     }
 
     public string GetAuthUserUsername()
     {
         if (_type == Type.READER)
         {
-            return "reader";
+            return ""; // TO FILL: reader username
         }
         else if (_type == Type.WRITER)
         {
-            return "writer";
+            return ""; // TO FILL: writer username
         }
         throw new Exception("Type='" + _type + "' and is not recognized");
     }
@@ -54,19 +54,18 @@ public class DevAppConfiguration : IAppConfiguration
     {
         if (_type == Type.READER)
         {
-            return "reader-password";
+            return ""; // TO FILL: reader password
         }
         else if (_type == Type.WRITER)
         {
-            return "writer-password";
+            return ""; // TO FILL: writer password
         }
         throw new Exception("Type='" + _type + "' and is not recognized");
     }
 
     public string GetUnionUrl()
     {
-        // return "https://dev-dsp.southcentralus.cloudapp.azure.com";
-        return "http://localhost:8080";
+        return "https://theunion.cloud";
     }
 
     public string GetUnionClient()

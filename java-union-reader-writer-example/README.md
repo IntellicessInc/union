@@ -5,6 +5,8 @@ You can run the example using Docker (the easiest option) or through IDE.
 In here, we describe Java IDE option.
 
 ## Run reader and writer with IDE
+Before running apps without Docker, you need to set writer and reader user accounts' credentials 
+in *com.intellicess.union.java_union_reader_writer_example.config.DevAppConfiguration*. Look for 4 *TO FILL:* comments.
 If your IDE supports maven (like e.g. Intellij Community), you can run com.intellicess.union.java_union_reader_writer_example.Reader 
 and com.intellicess.union.java_union_reader_writer_example.Writer directly in IDE.
 

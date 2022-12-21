@@ -13,7 +13,7 @@ public class Writer
     private static Logger log = AppLogFactory.CreateLogger();
 
 
-    public static void Main()
+    public void Main()
     {
         Dictionary<string, JwlfValueType> headerValueTypeMapping = new Dictionary<string, JwlfValueType>
         {

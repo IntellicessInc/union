@@ -12,6 +12,10 @@
       <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/csharp-union-reader-writer-example/v17/.suo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp-union-reader-writer-example/.vs/slnx.sqlite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/config/DevAppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/intellicess/union/java_union_reader_writer_example/config/DevAppConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python-union-reader-writer-example/src/reader_local_config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../python-union-reader-writer-example/src/reader_local_config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python-union-reader-writer-example/src/writer_local_config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../python-union-reader-writer-example/src/writer_local_config.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
