@@ -1,8 +1,10 @@
+import json
 import logging
 from datetime import datetime
 
 import requests
-from requests import Response
+from requests import Response, ReadTimeout
+from requests.exceptions import ChunkedEncodingError
 
 from src.utils import jwlf
 from src.utils.union_client.saved_jwlf_log import SavedJWLFLog
@@ -27,6 +29,7 @@ class UnionClient(object):
         jwlf_log_json = jwlf_log.to_dict()
         url = f"{self.union_url}/api/v1/well-logs/{client}/{region}/{asset}/{folder}"
         access_token = self.__get_access_token__()
+        logging.info(f"{datetime.now()} Saving new data with name={jwlf_log.header.name}")
         res: Response = requests.post(url, json=jwlf_log_json, headers={"Authorization": f"Bearer {access_token}"})
         if res.status_code >= 300:
             raise Exception(
@@ -37,11 +40,42 @@ class UnionClient(object):
         jwlf_log_dict = [jwlf_log.to_dict() for jwlf_log in jwlf_logs]
         url = f"{self.union_url}/api/v1/well-logs/{client}/{region}/{asset}/{folder}/batch-save"
         access_token = self.__get_access_token__()
+        logging.info(f"{datetime.now()} Saving new data with names={[jwlf_log.header.name for jwlf_log in jwlf_logs]}")
         res: Response = requests.post(url, json=jwlf_log_dict, headers={"Authorization": f"Bearer {access_token}"})
         if res.status_code >= 300:
             raise Exception(
                 f"UnionClient#save_jwlf_logs failure with http response status code={res.status_code} and response={res.text}")
         return [saved_log['id'] for saved_log in res.json()["list"]]
+
+    def get_jwlfs_stream(self, client, region, asset, folder, inclusive_since_timestamp):
+        resume_token = None
+        query_params = {'fullData': 'true'}
+        if inclusive_since_timestamp is not None:
+            query_params['resumeAtTimestamp'] = inclusive_since_timestamp
+        url = f"{self.union_url}/api/v1/well-logs-stream/{client}/{region}/{asset}/{folder}"
+        while True:
+            access_token = self.__get_access_token__()
+            headers = {'Accept': 'application/x-ndjson', 'Authorization': f"Bearer {access_token}",
+                       "Connection": "close"}
+            if resume_token is not None:
+                query_params['resumeToken'] = resume_token
+            logging.debug(f"{datetime.now()} Stream created")
+            try:
+                with requests.get(url, stream=True, params=query_params, headers=headers, timeout=90) as response:
+                    for line in response.iter_lines(decode_unicode=True):
+                        if line and line != '':
+                            new_event = json.loads(line)
+                            resume_token = new_event['id']
+                            log: SavedJWLFLog = SavedJWLFLog.from_dict(new_event['data'])
+                            yield log
+            except ChunkedEncodingError:
+                logging.debug("Stream time limit got exceeded in the shape of ChunkedEncodingError")
+                pass
+            except ReadTimeout:
+                logging.debug("Stream time limit got exceeded in the shape of ReadTimeout")
+                pass
+            finally:
+                logging.debug("Stream will be recreated as its time limit got exceeded")
 
     def get_new_jwlf_logs_with_data(self, client, region, asset, folder, inclusive_since_timestamp=None) -> [
         SavedJWLFLog]:

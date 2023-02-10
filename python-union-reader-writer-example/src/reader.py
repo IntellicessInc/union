@@ -2,14 +2,12 @@ import json
 import logging
 from datetime import datetime
 
-import time
-
 from src.utils import config, file_utils, utils
-from src.utils.csv_jwlf_converter import FILENAME_METADATA_KEY
 from src.utils import csv_jwlf_with_base64_encoded_binaries_converter
+from src.utils.csv_jwlf_converter import FILENAME_METADATA_KEY
 from src.utils.csv_jwlf_with_base64_encoded_binaries_converter import BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY
-from src.utils.jwlf import JWLFLog
 from src.utils.union_client import union_client
+
 
 if __name__ == '__main__':
     config_parser = config.init('reader_local_config.ini')
@@ -30,23 +28,21 @@ if __name__ == '__main__':
     folder = union_config['folder']
     reader_folder = local_config['reader.folder']
 
-    # if set to None, it will read all data that was saved so far in given data space (i.e. in client/region/asset/folder)
-    inclusive_since_timestamp = utils.date_time_to_milliseconds_timestamp(datetime.now()) - 5000
+    # if set to 0, it will read all data that was saved so far in given data space (i.e. in client/region/asset/folder)
+    # if set to None, it will listen to data created from now on
+    inclusive_since_timestamp = None
     logging.info(
         f"Listening to '{client}/{region}/{asset}/{folder}' data space in Union since timestamp='{inclusive_since_timestamp}'...")
-    while True:
-        logs_with_data = union_api_client.get_new_jwlf_logs_with_data(client, region, asset, folder,
-                                                                      inclusive_since_timestamp)
-        for log_with_data in logs_with_data:
-            log_with_data_dict = log_with_data.to_dict()
-            jwlf_log_json: str = json.dumps(log_with_data_dict, indent=2)
-            filename: str = log_with_data.header.metadata[FILENAME_METADATA_KEY]
-            base64EncodedBinariesExample: bool = True if log_with_data.header.metadata.get(BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY) else False
-            if base64EncodedBinariesExample:
-                csv_jwlf_with_base64_encoded_binaries_converter.convert_jwlf_to_folder(reader_folder, log_with_data)
-            if not filename.endswith('.json'):
-                filename = filename + '.json'
-            file_utils.create_textual_file(f"{reader_folder}/{filename}", jwlf_log_json)
-            logging.info(f"Pulled '{filename}' and saved in local reader folder")
-
-        time.sleep(1)
+    for new_data in union_api_client.get_jwlfs_stream(client, region, asset, folder, inclusive_since_timestamp):
+        logging.info(f"{datetime.now()} New data received with name={new_data.header.name} and id={new_data.union_id}")
+        log_with_data_dict = new_data.to_dict()
+        jwlf_log_json: str = json.dumps(log_with_data_dict, indent=2)
+        filename: str = new_data.header.metadata[FILENAME_METADATA_KEY]
+        base64_encoded_binaries_example: bool = True if new_data.header.metadata.get(
+            BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY) else False
+        if base64_encoded_binaries_example:
+            csv_jwlf_with_base64_encoded_binaries_converter.convert_jwlf_to_folder(reader_folder, new_data)
+        if not filename.endswith('.json'):
+            filename = filename + '.json'
+        file_utils.create_textual_file(f"{reader_folder}/{filename}", jwlf_log_json)
+        logging.info(f"Pulled '{filename}' and saved in local reader folder")

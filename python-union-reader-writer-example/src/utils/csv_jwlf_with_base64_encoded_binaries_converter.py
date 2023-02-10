@@ -6,6 +6,7 @@ from src.utils import file_utils
 from src.utils import jwlf
 from src.utils.csv_jwlf_converter import get_from_dict, FILENAME_METADATA_KEY, cast_value_to_right_type
 from src.utils.jwlf import JWLFLog, ValueType
+from src.utils.union_client import union_client
 
 BINARIES_DATA_CURVE_NAME = "Binaries data"
 BINARIES_NAMES_CURVE_NAME = "Binaries names"
@@ -77,7 +78,7 @@ def convert_folder_to_jwlf(folder_path: str, header_value_type_mapping: Optional
     return jwlf.JWLFLog(jwlf_header, jwlf_curves, jwlf_data)
 
 
-def convert_jwlf_to_folder(base_path: str, log: JWLFLog):
+def convert_jwlf_to_folder(base_path: str, log: union_client.SavedJWLFLog):
     folder_path = f"{base_path}/{log.header.name} files"
     file_utils.delete_file_or_directory(folder_path)
     file_utils.create_folder(folder_path)
