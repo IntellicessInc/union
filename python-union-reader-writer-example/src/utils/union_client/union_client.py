@@ -55,8 +55,7 @@ class UnionClient(object):
         url = f"{self.union_url}/api/v1/well-logs-stream/{client}/{region}/{asset}/{folder}"
         while True:
             access_token = self.__get_access_token__()
-            headers = {'Accept': 'application/x-ndjson', 'Authorization': f"Bearer {access_token}",
-                       "Connection": "close"}
+            headers = {'Accept': 'application/x-ndjson', 'Authorization': f"Bearer {access_token}"}
             if resume_token is not None:
                 query_params['resumeToken'] = resume_token
             logging.debug(f"{datetime.now()} Stream created")
@@ -66,7 +65,7 @@ class UnionClient(object):
                         if line and line != '':
                             new_event = json.loads(line)
                             resume_token = new_event['id']
-                            log: SavedJWLFLog = SavedJWLFLog.from_dict(new_event['data'])
+                            log: SavedJWLFLog = SavedJWLFLog.from_dict(new_event['data']['content'])
                             yield log
             except ChunkedEncodingError:
                 logging.debug("Stream time limit got exceeded in the shape of ChunkedEncodingError")

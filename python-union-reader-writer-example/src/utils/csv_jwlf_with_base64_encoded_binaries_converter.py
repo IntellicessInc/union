@@ -10,7 +10,7 @@ from src.utils.union_client import union_client
 
 BINARIES_DATA_CURVE_NAME = "Binaries data"
 BINARIES_NAMES_CURVE_NAME = "Binaries names"
-BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY = "base64EncodedBinariesExample"
+BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY = "base64-encoded-binaries-example"
 
 
 def convert_folder_to_jwlf(folder_path: str, header_value_type_mapping: Optional[dict]) -> Optional[JWLFLog]:
