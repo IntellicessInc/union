@@ -13,13 +13,21 @@ public class Writer
     private static Logger log = AppLogFactory.CreateLogger();
 
 
-    public void Main()
+    public static void Main()
     {
         Dictionary<string, JwlfValueType> headerValueTypeMapping = new Dictionary<string, JwlfValueType>
         {
-            { "Integer Number 1", JwlfValueType.INTEGER },
-            { "Float Number 2", JwlfValueType.FLOAT},
-            { "String Text A", JwlfValueType.STRING}
+            {"Integer Number 1", JwlfValueType.INTEGER},
+            {"Float Number 2", JwlfValueType.FLOAT},
+            {"String Text A", JwlfValueType.STRING},
+            {"Bit SN", JwlfValueType.INTEGER},
+            {"TFA", JwlfValueType.FLOAT},
+            {"Bit Size", JwlfValueType.FLOAT},
+            {"DI", JwlfValueType.INTEGER},
+            {"DO", JwlfValueType.INTEGER},
+            {"Run Length", JwlfValueType.INTEGER},
+            {"Hours", JwlfValueType.FLOAT},
+            {"ROP", JwlfValueType.FLOAT}
         };
         IAppConfiguration config;
         try
@@ -89,8 +97,28 @@ public class Writer
                         }
                         JwlfSavedResponseList savedJwlfs = unionClient.SaveJwlfLogs(client, region, asset, folder, jwlfRequests);
                         log.Information("JWLF Logs from file '{Filename}' got saved with ids={SavedJwlfLogsIds}", filename, savedJwlfs.List.Select(jwlf => jwlf.Id));
-}
+                    }
                     fileInfo.Delete();
+                }
+            }
+            DirectoryInfo[] directoryInfos = writerDirectory.GetDirectories();
+            if (directoryInfos.Length > 0)
+            {
+                foreach (DirectoryInfo directoryInfo in directoryInfos) 
+                {
+                    string path = directoryInfo.FullName;
+                    string directoryName = directoryInfo.Name;
+                    log.Information("Directory detected - '{DirectoryName}'", directoryName);
+                    if (Directory.Exists(path)
+                        && CsvJwlfWithBase64EncodedBinariesConverter.BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY.Equals(directoryName)) {
+                        var jwlfRequest = CsvJwlfWithBase64EncodedBinariesConverter.ConvertFolderToJwlf(path, headerValueTypeMapping);
+                        if (jwlfRequest != null)
+                        {
+                            var savedJwlf = unionClient.SaveJwlfLog(client, region, asset, folder, jwlfRequest);
+                            log.Information("JWLF Log from file '{DirectoryName}' got saved with id={SavedJwlfLogsId}", directoryName, savedJwlf.Id);
+                        }
+                        Directory.Delete(path, true);
+                    }
                 }
             }
             Thread.Sleep(1000);

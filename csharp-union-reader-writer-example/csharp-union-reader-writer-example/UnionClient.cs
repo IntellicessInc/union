@@ -2,6 +2,7 @@
 
 using Union;
 using System;
+using Serilog.Core;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http.Json;
@@ -19,6 +20,7 @@ public class UnionClient
     private const int MAX_NUMBER_OF_IDS_PER_REQUEST = 25;
     private const string APPLICATION_X_WWW_FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
     private const string ACCESS_TOKEN_BEARER_PREFIX = "Bearer ";
+	private static Logger log = AppLogFactory.CreateLogger();
 
     private string _lastAccessToken;
     private DateTime? _accessTokenCreationTime = null;
@@ -64,6 +66,7 @@ public class UnionClient
         options.Converters.Add(new JwlfValueTypeJsonConverter());
         
         var jsonContent =  JsonContent.Create(jwlfLogs, mediaType: null, options);
+		log.Information("sending jsonContent={jsonContent}", jsonContent.ToString());
         _httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(ACCESS_TOKEN_BEARER_PREFIX + accessToken);
         var response =  _httpClient.PostAsync(url, jsonContent).Result;
         var content = response.Content;
@@ -127,7 +130,7 @@ public class UnionClient
             string accessToken = GetAccessToken();
             var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
             options.Converters.Add(new JwlfValueTypeJsonConverter());
-        options.Converters.Add(new ObjectDeserializer());
+            options.Converters.Add(new ObjectDeserializer());
 
             _httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(ACCESS_TOKEN_BEARER_PREFIX + accessToken);
             var response = _httpClient.GetAsync(url).Result;

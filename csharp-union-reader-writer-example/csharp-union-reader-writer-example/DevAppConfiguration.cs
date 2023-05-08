@@ -41,11 +41,11 @@ public class DevAppConfiguration : IAppConfiguration
     {
         if (_type == Type.READER)
         {
-            return ""; // TO FILL: reader username
+            return "Writer_gmail"; // TO FILL: reader username
         }
         else if (_type == Type.WRITER)
         {
-            return ""; // TO FILL: writer username
+            return "Writer_gmail"; // TO FILL: writer username
         }
         throw new Exception("Type='" + _type + "' and is not recognized");
     }
@@ -54,11 +54,11 @@ public class DevAppConfiguration : IAppConfiguration
     {
         if (_type == Type.READER)
         {
-            return ""; // TO FILL: reader password
+            return "Writer_gmail"; // TO FILL: reader password
         }
         else if (_type == Type.WRITER)
         {
-            return ""; // TO FILL: writer password
+            return "Writer_gmail"; // TO FILL: writer password
         }
         throw new Exception("Type='" + _type + "' and is not recognized");
     }

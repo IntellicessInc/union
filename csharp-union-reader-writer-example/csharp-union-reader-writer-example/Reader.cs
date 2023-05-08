@@ -61,6 +61,13 @@ public class Reader
             List<JwlfResponse> jwlfLogs = responseList.List;
             foreach (JwlfResponse jwlfLog in jwlfLogs) {
                 string filename = jwlfLog.Header.Metadata["filename"];
+                string base64EncodedBinariesKey = CsvJwlfWithBase64EncodedBinariesConverter.BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY;
+                bool base64EncodedBinariesExample = jwlfLog.Header.Metadata.ContainsKey(base64EncodedBinariesKey)
+                    && bool.Parse(jwlfLog.Header.Metadata[base64EncodedBinariesKey]);
+                if (base64EncodedBinariesExample) {
+                    CsvJwlfWithBase64EncodedBinariesConverter.ConvertJwlfToFolder(readerLocalWorkingDirectory, jwlfLog);
+                }
+
                 if (!filename.EndsWith(".json")) {
                     filename += ".json";
                 }

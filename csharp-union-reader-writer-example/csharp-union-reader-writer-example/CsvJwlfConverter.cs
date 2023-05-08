@@ -17,6 +17,7 @@ public static class CsvJwlfConverter
 
     private static List<string> TRUE_BOOLEAN_VALUES = new List<string> { "yes", "true", "on" };
     private static List<string> FALSE_BOOLEAN_VALUES = new List<string> { "no", "false", "off" };
+    public static string FILENAME_METADATA_KEY = "filename";
 
     private static Logger log = AppLogFactory.CreateLogger();
 
@@ -83,7 +84,7 @@ public static class CsvJwlfConverter
         return castedValues;
     }
 
-    private static Object CastValueToRightType(JwlfCurve jwlfCurve, Object value)
+    public static Object CastValueToRightType(JwlfCurve jwlfCurve, Object value)
     {
         if (value == null)
         {
