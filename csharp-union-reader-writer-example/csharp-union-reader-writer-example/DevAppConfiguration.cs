@@ -41,11 +41,11 @@ public class DevAppConfiguration : IAppConfiguration
     {
         if (_type == Type.READER)
         {
-            return "Writer_gmail"; // TO FILL: reader username
+            return ""; // TO FILL: reader username
         }
         else if (_type == Type.WRITER)
         {
-            return "Writer_gmail"; // TO FILL: writer username
+            return ""; // TO FILL: writer username
         }
         throw new Exception("Type='" + _type + "' and is not recognized");
     }

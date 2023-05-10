@@ -79,8 +79,56 @@ public class UnionClient
         return responseBody;
     }
 
-    public JwlfResponseList GetNewJwlfLogsWithData(string client, string region, string asset, string folder,
+    public IEnumerable<JwlfResponseEvent> GetJwlfsStream(string client, string region, string asset, string folder, 
                                                         long? inclusiveSinceTimestamp)
+    {
+        string baseUrl = $"{_config.UnionUrl}/api/v1/well-logs-stream/{client}/{region}/{asset}/{folder}?fullData=true";
+        string resumeToken = null;
+        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        options.Converters.Add(new JwlfValueTypeJsonConverter());
+        options.Converters.Add(new UnionEventTypeJsonConverter());
+        options.Converters.Add(new ObjectDeserializer());
+
+        _httpClient.DefaultRequestHeaders.Add("Accept", "application/x-ndjson");
+	    _httpClient.Timeout = TimeSpan.FromSeconds(90);
+
+	    while (true)
+	    {
+            string resumeTokenUrlPart = "";
+            if (resumeToken != null) 
+            {
+                resumeTokenUrlPart = "&resumeToken=" + resumeToken;
+            }
+	        string url = $"{baseUrl}{resumeTokenUrlPart}";
+            string accessToken = GetAccessToken();
+            _httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(ACCESS_TOKEN_BEARER_PREFIX + accessToken);
+			using (var streamReader = new StreamReader(_httpClient.GetStreamAsync(url).Result))
+			{
+				while (!streamReader.EndOfStream)
+				{
+                    JwlfResponseEvent jwlfResponseEvent = null;
+		            try
+		            {
+                        string jsonString = streamReader.ReadLineAsync().Result;
+                        
+                        var conversionOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+                        conversionOptions.Converters.Add(new JwlfValueTypeJsonConverter());
+                        conversionOptions.Converters.Add(new UnionEventTypeJsonConverter());
+                        conversionOptions.Converters.Add(new ObjectDeserializer());
+                        jwlfResponseEvent = JsonSerializer.Deserialize<JwlfResponseEvent>(jsonString, conversionOptions);
+                    }
+		            catch(Exception ex)
+		            {
+                        log.Error("Failure: {ex}", ex);
+		            }
+                    yield return jwlfResponseEvent;
+				}
+			}
+		}
+    }
+
+    public JwlfResponseList GetNewJwlfLogsWithData(string client, string region, string asset, string folder,
+                                                   long? inclusiveSinceTimestamp)
     {
         string searchKey = client + "/" + region + "/" + asset + "/" + folder;
         long inclusiveSinceTimestampValue = inclusiveSinceTimestamp.GetValueOrDefault(0);
