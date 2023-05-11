@@ -94,15 +94,25 @@ public class UnionClient
 
 	    while (true)
 	    {
-            string resumeTokenUrlPart = "";
-            if (resumeToken != null) 
+            StreamReader streamReader = null;
+            try
             {
-                resumeTokenUrlPart = "&resumeToken=" + resumeToken;
+                string resumeTokenUrlPart = "";
+                if (resumeToken != null) 
+                {
+                    resumeTokenUrlPart = "&resumeToken=" + resumeToken;
+                }
+	            string url = $"{baseUrl}{resumeTokenUrlPart}";
+                string accessToken = GetAccessToken();
+                _httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(ACCESS_TOKEN_BEARER_PREFIX + accessToken);
+                    streamReader = new StreamReader(_httpClient.GetStreamAsync(url).Result);
             }
-	        string url = $"{baseUrl}{resumeTokenUrlPart}";
-            string accessToken = GetAccessToken();
-            _httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(ACCESS_TOKEN_BEARER_PREFIX + accessToken);
-			using (var streamReader = new StreamReader(_httpClient.GetStreamAsync(url).Result))
+		    catch(Exception ex)
+		    {
+                log.Error("Failure when creating stream reader: {ex}", ex);
+                continue;
+		    }
+			using (streamReader)
 			{
 				while (!streamReader.EndOfStream)
 				{
@@ -119,7 +129,7 @@ public class UnionClient
                     }
 		            catch(Exception ex)
 		            {
-                        log.Error("Failure: {ex}", ex);
+                        log.Error("Failure when reading new data from stream: {ex}", ex);
 		            }
                     yield return jwlfResponseEvent;
 				}

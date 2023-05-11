@@ -37,5 +37,5 @@ public class JwlfHeader
     [JsonProperty("dataUri")]
     public string? DataUri { get; set; }
     [JsonProperty("metadata")]
-    public Dictionary<string, string>? Metadata { get; set; } = new Dictionary<string, string>();
+    public Dictionary<string, object>? Metadata { get; set; } = new Dictionary<string, object>();
 }

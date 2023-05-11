@@ -58,10 +58,10 @@ public class Reader
         foreach(var jwlfStreamEvent in unionClient.GetJwlfsStream(client, region, asset, folder, inclusiveSinceTimestamp))
         {
             JwlfResponse jwlfLog = jwlfStreamEvent.Data.Content;
-            string filename = jwlfLog.Header.Metadata["filename"];
+            string filename = (string) jwlfLog.Header.Metadata["filename"];
             string base64EncodedBinariesKey = CsvJwlfWithBase64EncodedBinariesConverter.BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY;
             bool base64EncodedBinariesExample = jwlfLog.Header.Metadata.ContainsKey(base64EncodedBinariesKey)
-                && bool.Parse(jwlfLog.Header.Metadata[base64EncodedBinariesKey]);
+                && (bool)jwlfLog.Header.Metadata[base64EncodedBinariesKey];
             if (base64EncodedBinariesExample) {
                 CsvJwlfWithBase64EncodedBinariesConverter.ConvertJwlfToFolder(readerLocalWorkingDirectory, jwlfLog);
             }

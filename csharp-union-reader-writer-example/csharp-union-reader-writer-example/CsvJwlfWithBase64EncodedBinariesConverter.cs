@@ -77,9 +77,9 @@ public static class CsvJwlfWithBase64EncodedBinariesConverter
         }
         string filenameMetadataKey = CsvJwlfConverter.FILENAME_METADATA_KEY;
 		jwlfHeaderValuesMap.Add("name", jwlfHeaderName);
-        jwlfHeaderValuesMap.Add("metadata", new Dictionary<string, string>() {
+        jwlfHeaderValuesMap.Add("metadata", new Dictionary<string, object>() {
 				[filenameMetadataKey] = jwlfHeaderName.Replace(".csv", ""),
-                [BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY] = "true"
+                [BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY] = true
         });
 
 		string? name = null;
@@ -162,10 +162,10 @@ public static class CsvJwlfWithBase64EncodedBinariesConverter
 		{
 			dataUri = (string)jwlfHeaderValuesMap["dataUri"];
 		}
-		Dictionary<string, string>metadata = null;
+		Dictionary<string, object>metadata = null;
 		if (jwlfHeaderValuesMap.ContainsKey("metadata"))
 		{
-			metadata = ((Dictionary<string, string>)jwlfHeaderValuesMap["metadata"]);
+			metadata = ((Dictionary<string, object>)jwlfHeaderValuesMap["metadata"]);
 		}
 
 		JwlfHeader jwlfHeader = new JwlfHeader() 
