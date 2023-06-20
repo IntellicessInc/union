@@ -55,23 +55,27 @@ public class Reader
         
         log.Information("Listening to '{client}/{region}/{asset}/{folder}' data space in Union since timestamp='{inclusiveSinceTimestamp}'...",
             client, region, asset, folder, inclusiveSinceTimestamp);
-        foreach(var jwlfStreamEvent in unionClient.GetJwlfsStream(client, region, asset, folder, inclusiveSinceTimestamp))
-        {
-            JwlfResponse jwlfLog = jwlfStreamEvent.Data.Content;
-            string filename = (string) jwlfLog.Header.Metadata["filename"];
-            string base64EncodedBinariesKey = CsvJwlfWithBase64EncodedBinariesConverter.BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY;
-            bool base64EncodedBinariesExample = jwlfLog.Header.Metadata.ContainsKey(base64EncodedBinariesKey)
-                && (bool)jwlfLog.Header.Metadata[base64EncodedBinariesKey];
-            if (base64EncodedBinariesExample) {
-                CsvJwlfWithBase64EncodedBinariesConverter.ConvertJwlfToFolder(readerLocalWorkingDirectory, jwlfLog);
-            }
+        while (true) 
+        { 
+            JwlfResponseList responseList = unionClient.GetNewJwlfLogsWithData(client, region, asset, folder, inclusiveSinceTimestamp);
+            List<JwlfResponse> jwlfLogs = responseList.List;
+            foreach (JwlfResponse jwlfLog in jwlfLogs) {
+                string filename = (string) jwlfLog.Header.Metadata["filename"];
+                string base64EncodedBinariesKey = CsvJwlfWithBase64EncodedBinariesConverter.BASE64_ENCODED_BINARIES_EXAMPLE_METADATA_KEY;
+                bool base64EncodedBinariesExample = jwlfLog.Header.Metadata.ContainsKey(base64EncodedBinariesKey)
+                    && (bool)jwlfLog.Header.Metadata[base64EncodedBinariesKey];
+                if (base64EncodedBinariesExample) {
+                    CsvJwlfWithBase64EncodedBinariesConverter.ConvertJwlfToFolder(readerLocalWorkingDirectory, jwlfLog);
+                }
 
-            if (!filename.EndsWith(".json")) {
-                filename += ".json";
+                if (!filename.EndsWith(".json")) {
+                    filename += ".json";
+                }
+                string filepath = readerLocalWorkingDirectory + "/" + filename;
+                SaveAsPrettyJson(jwlfLog, filepath);
+                log.Information("Pulled '{filename}' and saved in local reader folder", filename);
             }
-            string filepath = readerLocalWorkingDirectory + "/" + filename;
-            SaveAsPrettyJson(jwlfLog, filepath);
-            log.Information("Pulled '{filename}' and saved in local reader folder", filename);
+            Thread.Sleep(1000);
         }
     }
 
